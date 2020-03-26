@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 from lxml import html
 
 
-																																																																																				
+
 def email2skype(email):
 	url="https://webresolver.nl/ajax/tools/email2skype"
 	data = {"string":email,"action":"PostData"}
@@ -12,10 +12,8 @@ def email2skype(email):
 	try:
 		response=requests.get("https://webresolver.nl/tools/email_to_skype")
 		soup = BeautifulSoup(response.content, 'html.parser')
-		token=str(soup.body.script).split('WebResolverSecurityCode=')[1].split('; expires=')[0]	
 
 		cookies = dict(response.cookies)
-		cookies['WebResolverSecurityCode']=token
 
 		r = requests.post(url,data=data,headers=headers,cookies=cookies)
 		soup = BeautifulSoup(r.content, 'html.parser')
